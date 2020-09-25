@@ -128,7 +128,8 @@ COVID-DST contains 603 conversations and 1232 utterances. Most of dialogues cont
 | Otherdiagnosis | 115 | Runnynose     | 44 | Asthma  | 16
 | Age            | 97  | Otherchecking | 42 | Reqmore | 13
 
-## Baseline model (TODO)
+## Baseline model
+Please refer to the folder `.\baseline` for more details.
 
 ## Evaluation
 We plan to adopt the **joint goal accuracy** - This is the average accuracy of predicting all slot assignments for a turn correctly. For non-categorical slots a fuzzy matching score is used to reward partial matches with the ground truth following [DSTC8](https://github.com/google-research-datasets/dstc8-schema-guided-dialogue/blob/master/dstc8.md).
