@@ -11,21 +11,21 @@ Main challenges lie in the Covid Dialogue System:
 - **Reliability/robustness**: a medical dialogue system needs to track the states correctly and act correspondingly.
 - **Tracking in time span**: the development of patient's condition (e.g., symptoms, medication) matters and it's non-trivial to track & use. 
 - **Service**: how to acquire supporting services, and how to let dialogue system interact with them.
-- Response quality: generated responses need to be natural, coherent, and consistent with ACTION.
-- Efficiency: inference time complexity needs to be small.
-- Data insufficiency: large medical dialogue datasets are typically hard to obtain.
+- **Response quality**: generated responses need to be natural, coherent, and consistent with ACTION.
+- **Efficiency**: inference time complexity needs to be small.
+- **Data insufficiency**: large medical dialogue datasets are typically hard to obtain.
 
 ## Building Covid Dialogue System
 Given that current CovidDialog dataset is a corpus without semantic labels, we might have few choices if we directly build a task-oriented system from it. For instance, an unstructured [Ubuntu Dialogue Corpus](https://github.com/rkadlec/ubuntu-ranking-dataset-creator) considered the task of best **response selection**, which might not be practical for real-life scenarios. Current mainstream datasets for DST, such as [MultiWoz](https://github.com/budzianowski/multiwoz) and [DSTC 8](https://github.com/google-research-datasets/dstc8-schema-guided-dialogue), use structured semantic labels to keep track of dialogue states that are vital for system responses. Hence, our plan is to further annotate the CovidDialog dataset with labels at each turn.
 
 Specifically, our plan is to build up the system with following steps:
 ### 1. Construct a CovidDST dataset from the CovidDialog dataset.
-DST is the core component in a dialogue system. It aims to track the dialogue states from the first to current turns. 
+DST is the core component in a dialogue system. It aims to track the dialogue states from the first to current turns. Please refer to [README](README.md) for more details.
 <!-- keeping track of dialogue states is vital for the system to decide what ACTION to take and inquire the external knowledge. -->
 
-We define the **dialogue state** as a set of **slots** and their corresponding **values**, i.e., the slot-value pair. We keep track of three kinds of slots, namely the INTENTION and INFORM in patients' utterance and ACTION in doctors' utterance. We list some of slots as follows:
+<!-- We define the **dialogue state** as a set of **slots** and their corresponding **values**, i.e., the slot-value pair. We keep track of three kinds of slots, namely the INTENTION and INFORM in patients' utterance and ACTION in doctors' utterance. We list some of slots as follows:
 <!-- Note that we treat the description as a separate turn and track the INTENTION and INFORM slots for it. -->
-- INTENTION
+<!-- - INTENTION
     - Advise
     - Ask for likelihood of COVID-19 infection
     - Ask for likelihood of cure
@@ -51,10 +51,10 @@ We define the **dialogue state** as a set of **slots** and their corresponding *
 - ACTION
     - QUERY
     - Advise 
-    - Ask for more information
+    - Ask for more information -->
 
     
-In order to track the development of conditions, we further record a **time value** for each value (which is optional), and each slot can have multiple values. We introduce a **< EOV > token** to indicate the end of values for a specific slot.
+<!-- In order to track the development of conditions, we further record a **time value** for each value (which is optional), and each slot can have multiple values. We introduce a **< EOV > token** to indicate the end of values for a specific slot.
 
 We devise two types of slots. Some slots have limited predefined values. These slots can be filled via classification. For other slots, values are not provided and they need to be extracted from the utterance. Most slots for INTENTION and ACTION have only two values: YES/NO. 
 
@@ -80,9 +80,9 @@ Thank you doctor, I have phlegm but not a lot. A tiny amount comes out most of t
 Hi, I would recommend you take n-acetylcysteine 200 mg powder dissolved in water three times a day. You may also nebulize using PNSS (saline nebulizer) three times a day. This will help the phlegm to come out. I would also recommend you take vitamin C 500 mg and zinc to boost your immune system. If symptoms persist, worsen or new onset of symptoms has been noted, further consult is advised.<br>
 **INTENTION:** (Ask for likelihood of COVID-19 infection, YES), (Advise, YES). <br>
 **INFORM:** (travel history, -, NO), (cough, last few days, heavy during night times), (temperature, -, NO), (tiredness, -, YES), (contact, -, NO), (medication, four to five days, drunk a lot of Benadryl and took Paracetamol), (phlegm, -, **not a lot**), (breath difficulty, -, **NO**), (medical condition, -, **NO**), (smoking, -, **NO**), (alcoholic, -, **NO**). <br>
-**ACTION:** (QUERY, **YES**), (ask for more information, **NO**), (advise, **YES**)
+**ACTION:** (QUERY, **YES**), (ask for more information, **NO**), (advise, **YES**) --> 
 
-Note that we omit the < EOV > token here.
+<!-- Note that we omit the < EOV > token here. -->
 ### 2. (Optional) Acquire and integrate the supporting services into the system.
 
 ### 3. Build and train a dialogue state tracker.
