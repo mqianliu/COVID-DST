@@ -134,7 +134,7 @@ Please refer to the folder `.\baseline` for more details.
 ## Evaluation
 We plan to adopt the **joint goal accuracy** - This is the average accuracy of predicting all slot assignments for a turn correctly. For non-categorical slots a fuzzy matching score is used to reward partial matches with the ground truth following [DSTC8](https://github.com/google-research-datasets/dstc8-schema-guided-dialogue/blob/master/dstc8.md).
 
-## Challenges for the datasets
+## Challenges for the dataset
 - The samples for slots are **imbalanced and insufficient**.
 - Hard to map all important descriptions/points in the patients' utterances to the slots.
 - Hard to define a set of dialogue acts to fully describe how doctors respond.
